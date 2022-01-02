@@ -1,11 +1,11 @@
 package TheGreedyGnomesProblem;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
-public class DynamicFinal {
+public class DynamicFinal{
     private static int m =0 , n = 0;
     private static String goldMine[][];
     private static String direction = "";
@@ -14,34 +14,48 @@ public class DynamicFinal {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     
-
-    public static void getInfor(String inFile){
+    public static String[][] getMap(String inFile){
         try{
             File goldMap = new File(inFile);
             Scanner myReader = new Scanner(goldMap);
 
             m = myReader.nextInt();
             n = myReader.nextInt();
-            goldMine = new String[m][n];
-            
+            String [][]goldMine = new String[m][n];
+            String cell;
             int i =0;
             int j = 0;
             while(myReader.hasNext()){
                 if(j == n){
                     i++;
                     j = 0;
+                }	
+                cell = myReader.next();
+                for (int index = 0; index < cell.length(); index++) {              	
+                	if(index == 0 && (cell.charAt(0) == 'X' || cell.charAt(0) == '.') && cell.length() == 1) {
+                		break;
+                	}
+                	if (!Character.isDigit(cell.charAt(index))){
+                		System.out.println("Map file contains invalid character\n");
+                		myReader.close();
+                		return null;
+                	}
                 }
-                goldMine[i][j] = myReader.next();
+                goldMine[i][j] = cell;
+                
                 j++;
 
             }
             myReader.close();
+            return goldMine;
             
         }catch(FileNotFoundException e){
             System.out.println("Can't not find file");
             e.printStackTrace();
+            return null;
         }
     }
+    
     public static int getMaximumGold() throws Exception{
         if (goldMine.length == 0 || goldMine == null){
             return -1;
@@ -116,7 +130,7 @@ public class DynamicFinal {
  
         if(args.length >0){
             String fileName = args[0];
-            getInfor(fileName);
+            goldMine = getMap(fileName);
         }else{
             System.out.println("Enter your goldMap file's name");
         }
@@ -138,4 +152,3 @@ public class DynamicFinal {
     }
     
 }
-

@@ -1,4 +1,6 @@
 package TheGreedyGnomesProblem;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,8 +10,48 @@ public class ExhaustiveSearchRefined {
     private static String goldMine[][];
     public static int max = 0;
     static String result ="";
-    private static String filename = "goldMap2.txt";
-    
+    //private static String filename = "goldMap2.txt";
+    public static String[][] getMap(String inFile){
+        try{
+            File goldMap = new File(inFile);
+            Scanner myReader = new Scanner(goldMap);
+
+            m = myReader.nextInt();
+            n = myReader.nextInt();
+            String [][]goldMine = new String[m][n];
+            String cell;
+            int i =0;
+            int j = 0;
+            while(myReader.hasNext()){
+                if(j == n){
+                    i++;
+                    j = 0;
+                }	
+                cell = myReader.next();
+                for (int index = 0; index < cell.length(); index++) {              	
+                	if(index == 0 && (cell.charAt(0) == 'X' || cell.charAt(0) == '.') && cell.length() == 1) {
+                		break;
+                	}
+                	if (!Character.isDigit(cell.charAt(index))){
+                		System.out.println("Map file contains invalid character\n");
+                		myReader.close();
+                		return null;
+                	}
+                }
+                goldMine[i][j] = cell;
+                
+                j++;
+
+            }
+            myReader.close();
+            return goldMine;
+            
+        }catch(FileNotFoundException e){
+            System.out.println("Can't not find file");
+            e.printStackTrace();
+            return null;
+        }
+    }
     public static void exhaustiveSearch(int i, int j, int temp, String step) throws Exception{
         // Recursively find path and record the optimal path
         if(!(i >= goldMine.length || j >= goldMine[0].length)){
@@ -88,7 +130,8 @@ public class ExhaustiveSearchRefined {
     }
 
     public static void main(String[] args) throws Exception {
-        goldMine = FileHandler.getMap(filename);
+    	String filename = args[0];
+        goldMine = getMap(filename);
         if (goldMine.length == 0 || goldMine == null){
             return;
         }
