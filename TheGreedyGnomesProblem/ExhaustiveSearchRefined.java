@@ -1,8 +1,7 @@
 package TheGreedyGnomesProblem;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
  
 public class ExhaustiveSearchRefined {
     private static int m =0 , n = 0;
@@ -11,35 +10,6 @@ public class ExhaustiveSearchRefined {
     static String result ="";
     private static String filename = "goldMap2.txt";
     
-    public static void getMap(){      // Map the goldMap.txt to 2d array
-        try{
-            File goldMap = new File(filename);
-            Scanner myReader = new Scanner(goldMap);
-
-            m = myReader.nextInt();
-            n = myReader.nextInt();
-            System.out.println(m + " " + n);
-            goldMine = new String[m][n];
-            
-            int i =0;
-            int j = 0;
-            while(myReader.hasNext()){
-                if(j == n){
-                    i++;
-                    j = 0;
-                }
-                goldMine[i][j] = myReader.next();
-                j++;
-
-            }
-            myReader.close();
-            
-        }catch(FileNotFoundException e){
-            System.out.println("Can't not find file");
-            e.printStackTrace();
-        }
-    }
-
     public static void exhaustiveSearch(int i, int j, int temp, String step) throws Exception{
         // Recursively find path and record the optimal path
         if(!(i >= goldMine.length || j >= goldMine[0].length)){
@@ -118,7 +88,7 @@ public class ExhaustiveSearchRefined {
     }
 
     public static void main(String[] args) throws Exception {
-        getInfor();
+        goldMine = FileHandler.getMap(filename);
         if (goldMine.length == 0 || goldMine == null){
             return;
         }

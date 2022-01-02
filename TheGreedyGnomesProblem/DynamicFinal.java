@@ -1,10 +1,5 @@
 package TheGreedyGnomesProblem;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Scanner;
-import FileHandler;
-
 
 public class DynamicFinal {
     private static int m =0 , n = 0;
@@ -88,14 +83,10 @@ public class DynamicFinal {
         }
     }
     public static void main(String[] args) throws Exception {
- 
-//        if(args.length  0){
-//            String fileName = args[0];
-//            getInfor(fileName);
-//        }else{
-//            System.out.println("Enter your goldMap file's name");
-//        }
-    	goldMine = getMap(filename);
+        goldMine = FileHandler.getMap(filename);
+        if (goldMine == null || goldMine.length == 0){
+            return;
+        }
         int maxGold = getMaximumGold();
 
         System.out.println(m + " " + n);

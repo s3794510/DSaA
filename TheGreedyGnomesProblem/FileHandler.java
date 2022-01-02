@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileHandler {
-	public static String[][] getInfor(String inFile){
+	public static String[][] getMap(String inFile){
         try{
             File goldMap = new File(inFile);
             Scanner myReader = new Scanner(goldMap);
