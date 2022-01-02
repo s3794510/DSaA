@@ -2,17 +2,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
+ 
 public class ExhaustiveSearchRefined {
     private static int m =0 , n = 0;
     private static String goldMine[][];
     public static int max = 0;
     static String result ="";
-
-    public static void getInfor(){      // Map the goldMap.txt to 2d array
+    private static String filename = "goldMap2.txt";
+    
+    public static void getMap(){      // Map the goldMap.txt to 2d array
         try{
-            File goldMap = new File("goldMap2.txt");
+            File goldMap = new File(filename);
             Scanner myReader = new Scanner(goldMap);
 
             m = myReader.nextInt();

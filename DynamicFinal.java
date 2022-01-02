@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
+import FileHandler;
 
 
 public class DynamicFinal {
@@ -12,37 +13,11 @@ public class DynamicFinal {
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW = "\u001B[33m";
+
+    private static String filename = "goldMap2.txt";
     
-
-    public static void getInfor(String inFile){
-        try{
-            File goldMap = new File(inFile);
-            Scanner myReader = new Scanner(goldMap);
-
-            m = myReader.nextInt();
-            n = myReader.nextInt();
-            goldMine = new String[m][n];
-            
-            int i =0;
-            int j = 0;
-            while(myReader.hasNext()){
-                if(j == n){
-                    i++;
-                    j = 0;
-                }
-                goldMine[i][j] = myReader.next();
-                j++;
-
-            }
-            myReader.close();
-            
-        }catch(FileNotFoundException e){
-            System.out.println("Can't not find file");
-            e.printStackTrace();
-        }
-    }
     public static int getMaximumGold() throws Exception{
-        if (goldMine.length == 0 || goldMine == null){
+        if (goldMine == null|| goldMine.length == 0){
             return -1;
         }
         int res = 0;
@@ -113,13 +88,13 @@ public class DynamicFinal {
     }
     public static void main(String[] args) throws Exception {
  
-        if(args.length >0){
-            String fileName = args[0];
-            getInfor(fileName);
-        }else{
-            System.out.println("Enter your goldMap file's name");
-        }
-
+//        if(args.length  0){
+//            String fileName = args[0];
+//            getInfor(fileName);
+//        }else{
+//            System.out.println("Enter your goldMap file's name");
+//        }
+    	goldMine = getMap(filename);
         int maxGold = getMaximumGold();
 
         System.out.println(m + " " + n);
